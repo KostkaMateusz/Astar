@@ -10,8 +10,8 @@ class Pole:
     global_object_table = []
     h=0
     g=0
-    f=h+g
-
+    
+  
     def __init__(self, x: int, y: int, value: int):
         self.x_position = x
         self.y_position = y
@@ -19,7 +19,24 @@ class Pole:
 
     def __str__(self):
         return f"X:{self.x_position};Y:{self.y_position};Value:{self.value}"
+    
 
+    @property
+    def list_of_neighbors(self):
+        return [self.up,self.right,self.down,self.left]
+    
+    @property
+    def value_of_f(self):
+        return self.h+self.g
+    
+    @classmethod
+    def print_table(cls):
+        for row in cls.global_object_table:
+            table_row=""
+            for element in row:
+                table_row+=f"X:{element.x_position} Y:{element.y_position} F:{element.value_of_f} G:{element.g} H:{element.h} |"
+            print(table_row)
+    
     @classmethod
     def print_all_items(cls):        
         for row in cls.global_object_table:
@@ -29,6 +46,9 @@ class Pole:
                 print("LEFT:"+str(element.left))
                 print("DOWN:"+str(element.down))
                 print("RIGHT:"+str(element.right))
+                print("H:"+str(element.h))
+                print("G:"+str(element.g))
+                print("F:"+str(element.value_of_f))
                 print("________________")
 
     @classmethod
