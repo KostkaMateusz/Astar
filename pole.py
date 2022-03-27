@@ -109,3 +109,9 @@ class Pole:
                     ].left = cls.global_object_table[element.y_position][
                         neighbor_addreses_left_x
                     ]
+
+    @staticmethod
+    def distance_calculator(place1, place2) -> int:
+        distance_x = abs(place1.x_position - place2.x_position)
+        distance_y = abs(place1.y_position - place2.y_position)
+        return distance_x + distance_y

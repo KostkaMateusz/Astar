@@ -1,5 +1,4 @@
 from pole import Pole
-from typing import List
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -18,13 +17,7 @@ global_object_table = Pole.array_creation(tablica_elementow)
 # a star engine
 
 
-def distance_calculator(place1: Pole, place2: Pole) -> int:
-    distance_x = abs(place1.x_position - place2.x_position)
-    distance_y = abs(place1.y_position - place2.y_position)
-    return distance_x + distance_y
-
-
-def a_star_engine(global_object_table: List[List[Pole]]):
+def a_star_engine(global_object_table: list[list[Pole]]):
 
     open_list = []
     closed_list = []
@@ -45,9 +38,10 @@ def a_star_engine(global_object_table: List[List[Pole]]):
                 if neigh.value == -1:
                     print("Znalazłem")
                     finded = True
+
                     break
-                neigh.g = q.g + distance_calculator(neigh, q)
-                neigh.h = distance_calculator(neigh, global_object_table[4][3])
+                neigh.g = q.g + Pole.distance_calculator(neigh, q)
+                neigh.h = Pole.distance_calculator(neigh, global_object_table[4][3])
                 if neigh in open_list:
                     continue
                 if neigh in closed_list:
@@ -59,17 +53,14 @@ def a_star_engine(global_object_table: List[List[Pole]]):
 
 
 a_star_engine(global_object_table)
-Pole.print_table()
+
 
 array_of_values = []
 
 for row in global_object_table:
     table_row_values = []
-
     for element in row:
-
-        table_row_values.append(element.value)
-
+        table_row_values.append(element.value_of_f)
     array_of_values.append(table_row_values)
 
 
@@ -89,6 +80,7 @@ plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
 for i in range(len(global_object_table)):
     for j in range(len(global_object_table[1])):
         text = ax.text(j, i, values[i, j], ha="center", va="center", color="w")
+
 
 ax.set_title("Astar")
 fig.tight_layout()
