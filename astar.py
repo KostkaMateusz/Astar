@@ -51,12 +51,15 @@ def a_star_engine(global_object_table: list[list[Pole]], start_x, start_y, end_x
                 neigh.g = q.g + Pole.distance_calculator(neigh, q)
                 neigh.h = Pole.distance_calculator(neigh, global_object_table[end_x][end_y])
                 if neigh in open_list:
+                    print(f"Opened:x_position:{neigh.x_position} y_position:{neigh.y_position}")
                     continue
                 if neigh in closed_list:
+                    print(f"Closed:x_position:{neigh.x_position} y_position:{neigh.y_position}")
                     continue
                 # print(f"X:{neigh.x_position} Y:{neigh.y_position}")
                 open_list.append(neigh)
 
+        create_plot(global_object_table)
         closed_list.append(q)
 
     return finish_x, finish_y
