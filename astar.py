@@ -5,12 +5,13 @@ import numpy
 start_x = 0
 start_y = 3
 
-end_x = 4
-end_y = 2
+
+end_x = 25
+end_y = 25
 
 
-map_size_x = 5
-map_size_y = 5
+map_size_x = 40
+map_size_y = 30
 list_of_obstacles = [[2, 1], [3, 1], [1, 3], [2, 3], [4, 4]]
 
 
@@ -32,10 +33,17 @@ def a_star_engine(global_object_table: list[list[Pole]], start_x, start_y, end_x
     success = False
 
     while open_list and not success:
-        # create_plot(global_object_table)
-        currentNode = min(open_list, key=lambda element: element.value_of_f)
-        index = open_list.index(currentNode)
-        successors = open_list.pop(index).list_of_neighbors
+
+        minimum = 99999
+        index_with_min = -1
+
+        for index, element in enumerate(open_list):
+            if element.value_of_f <= minimum:
+                minimum = element.value_of_f
+                index_with_min = index
+
+        currentNode = open_list[index_with_min]
+        successors = open_list.pop(index_with_min).list_of_neighbors
         closed_list.append(currentNode)
 
         if currentNode.value == -1:
@@ -51,7 +59,7 @@ def a_star_engine(global_object_table: list[list[Pole]], start_x, start_y, end_x
 
             child.parent = currentNode
             g = currentNode.g + Pole.distance_calculator(currentNode, child)
-            h = Pole.distance_calculator(child, global_object_table[end_y][end_x])
+            h = Pole.distance_calculator(child, global_object_table[end_y][end_x]) * 2
 
             if child in open_list:
                 if child.g > g:
