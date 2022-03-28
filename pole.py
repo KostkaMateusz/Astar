@@ -7,6 +7,7 @@ class Pole:
     __object_table = []
     h = 0
     g = 0
+    parent = None
 
     def __init__(self, x: int, y: int, value: int):
         self.x_position = x
@@ -15,6 +16,11 @@ class Pole:
 
     def __str__(self):
         return f"X:{self.x_position};Y:{self.y_position};Value:{self.value}"
+
+    def print_parents(self):
+        print(self)
+        if self.parent != None:
+            self.parent.print_parents()
 
     @property
     def list_of_neighbors(self):
@@ -67,27 +73,31 @@ class Pole:
                 neighbor_addreses_left_x = element.x_position - 1
 
                 if neighbor_addreses_up_y >= 0 and neighbor_addreses_up_y <= len(cls.__object_table) - 1:
-                    cls.__object_table[element.y_position][element.x_position].up = cls.__object_table[
-                        neighbor_addreses_up_y
-                    ][element.x_position]
+                    cls.__object_table[element.y_position][element.x_position].up = cls.__object_table[neighbor_addreses_up_y][element.x_position]
 
                 if neighbor_addreses_right_x >= 0 and neighbor_addreses_right_x <= len(row) - 1:
-                    cls.__object_table[element.y_position][element.x_position].right = cls.__object_table[
-                        element.y_position
-                    ][neighbor_addreses_right_x]
+                    cls.__object_table[element.y_position][element.x_position].right = cls.__object_table[element.y_position][neighbor_addreses_right_x]
 
                 if neighbor_addreses_down_y >= 0 and neighbor_addreses_down_y <= len(cls.__object_table) - 1:
-                    cls.__object_table[element.y_position][element.x_position].down = cls.__object_table[
-                        neighbor_addreses_down_y
-                    ][element.x_position]
+                    cls.__object_table[element.y_position][element.x_position].down = cls.__object_table[neighbor_addreses_down_y][element.x_position]
 
                 if neighbor_addreses_left_x >= 0 and neighbor_addreses_left_x <= len(row) - 1:
-                    cls.__object_table[element.y_position][element.x_position].left = cls.__object_table[
-                        element.y_position
-                    ][neighbor_addreses_left_x]
+                    cls.__object_table[element.y_position][element.x_position].left = cls.__object_table[element.y_position][neighbor_addreses_left_x]
 
     @staticmethod
     def distance_calculator(place1, place2) -> int:
         distance_x = abs(place1.x_position - place2.x_position)
         distance_y = abs(place1.y_position - place2.y_position)
         return distance_x + distance_y
+
+    @staticmethod
+    def find_path(Node):
+        path = []
+
+        def way(Node: Pole):
+            if Node != None:
+                path.append([Node.x_position, Node.y_position])
+                way(Node.parent)
+
+        way(Node)
+        return path[::-1]
