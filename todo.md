@@ -1,0 +1,1 @@
+- call plot function with each stop of calculate

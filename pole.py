@@ -51,9 +51,7 @@ class Pole:
         for row_counter, row in enumerate(table_of_elements):
             row___object_table = []
             for columne_counter, element_value in enumerate(row):
-                row___object_table.append(
-                    Pole(columne_counter, row_counter, element_value)
-                )
+                row___object_table.append(Pole(columne_counter, row_counter, element_value))
             cls.__object_table.append(row___object_table)
         # after creation of a array of object calculate references to neighbors
         Pole.calculate_neighbors()
@@ -68,45 +66,25 @@ class Pole:
                 neighbor_addreses_down_y = element.y_position + 1
                 neighbor_addreses_left_x = element.x_position - 1
 
-                if (
-                    neighbor_addreses_up_y >= 0
-                    and neighbor_addreses_up_y <= len(cls.__object_table) - 1
-                ):
-                    cls.__object_table[element.y_position][
-                        element.x_position
-                    ].up = cls.__object_table[neighbor_addreses_up_y][
-                        element.x_position
-                    ]
+                if neighbor_addreses_up_y >= 0 and neighbor_addreses_up_y <= len(cls.__object_table) - 1:
+                    cls.__object_table[element.y_position][element.x_position].up = cls.__object_table[
+                        neighbor_addreses_up_y
+                    ][element.x_position]
 
-                if (
-                    neighbor_addreses_right_x >= 0
-                    and neighbor_addreses_right_x <= len(row) - 1
-                ):
-                    cls.__object_table[element.y_position][
-                        element.x_position
-                    ].right = cls.__object_table[element.y_position][
-                        neighbor_addreses_right_x
-                    ]
+                if neighbor_addreses_right_x >= 0 and neighbor_addreses_right_x <= len(row) - 1:
+                    cls.__object_table[element.y_position][element.x_position].right = cls.__object_table[
+                        element.y_position
+                    ][neighbor_addreses_right_x]
 
-                if (
-                    neighbor_addreses_down_y >= 0
-                    and neighbor_addreses_down_y <= len(cls.__object_table) - 1
-                ):
-                    cls.__object_table[element.y_position][
-                        element.x_position
-                    ].down = cls.__object_table[neighbor_addreses_down_y][
-                        element.x_position
-                    ]
+                if neighbor_addreses_down_y >= 0 and neighbor_addreses_down_y <= len(cls.__object_table) - 1:
+                    cls.__object_table[element.y_position][element.x_position].down = cls.__object_table[
+                        neighbor_addreses_down_y
+                    ][element.x_position]
 
-                if (
-                    neighbor_addreses_left_x >= 0
-                    and neighbor_addreses_left_x <= len(row) - 1
-                ):
-                    cls.__object_table[element.y_position][
-                        element.x_position
-                    ].left = cls.__object_table[element.y_position][
-                        neighbor_addreses_left_x
-                    ]
+                if neighbor_addreses_left_x >= 0 and neighbor_addreses_left_x <= len(row) - 1:
+                    cls.__object_table[element.y_position][element.x_position].left = cls.__object_table[
+                        element.y_position
+                    ][neighbor_addreses_left_x]
 
     @staticmethod
     def distance_calculator(place1, place2) -> int:

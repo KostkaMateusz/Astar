@@ -20,12 +20,14 @@ def create_plot(object_table: list[list[Pole]]):
         labels=[element for element in range(len(object_table))],
     )
 
-    # # # Rotate the tick labels and set their alignment.
-    plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
+    
+
+
     plt.axvline(x=2, color="red")
     plt.axhline(y=4, color="red")
-    rectangle = plt.Rectangle((0, 0), 1, 2, ec="red")
+    rectangle = plt.Rectangle((0, 0), 1, 1, ec="red")
     plt.gca().add_patch(rectangle)
+
     # Loop over data dimensions and create text annotations.
     for i in range(len(object_table)):
         for j in range(len(object_table[1])):

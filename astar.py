@@ -1,32 +1,33 @@
 from pole import Pole
 from plot import create_plot
+import numpy
 
-
-# elements 1 is normal place; element 0 is przeszkoda; element -1 is meta; element 2 is start
 
 start_x = 0
 start_y = 3
 end_x = 4
 end_y = 2
+map_size_x = 5
+map_size_y = 5
+list_of_obstacles = [[2, 1], [3, 1], [1, 3], [2, 3], [4, 4]]
 
 
-tablica_elementow = [
-    [1, 1, 1, 2, 1],
-    [1, 1, 0, 0, 1],
-    [1, 1, 1, 1, 1],
-    [1, 1, 0, 1, 1],
-    [1, 1, -1, 1, 0],
-]
+def generate_map(start_x: int, start_y: int, end_x: int, end_y: int, map_size_x: int, map_size_y: int, list_of_obstacles: list) -> list[list[int]]:
+    """elements 1 is normal place; element 0 is przeszkoda; element -1 is meta; element 2 is start"""
+    map = numpy.full((map_size_x, map_size_y), 1)
+    map[start_x][start_y] = 2
+    map[end_x][end_y] = -1
+    for obstacles in list_of_obstacles:
+        map[obstacles[1]][obstacles[0]] = 0
+    return map
 
-global_object_table = Pole.array_creation(tablica_elementow)
 
-
-def a_star_engine(
-    global_object_table: list[list[Pole]], start_x, start_y, end_x, end_y
-):
+def a_star_engine(global_object_table: list[list[Pole]], start_x, start_y, end_x, end_y):
 
     open_list = []
     closed_list = []
+    finish_x = None
+    finish_y = None
 
     open_list.append(global_object_table[start_x][start_y])
     finded = False
@@ -43,12 +44,12 @@ def a_star_engine(
             if neigh is not None and neigh.value != 0:
                 if neigh.value == -1:
                     # print("Znalazłem")
+                    finish_x = neigh.x_position
+                    finish_y = neigh.y_position
                     finded = True
                     break
                 neigh.g = q.g + Pole.distance_calculator(neigh, q)
-                neigh.h = Pole.distance_calculator(
-                    neigh, global_object_table[end_x][end_y]
-                )
+                neigh.h = Pole.distance_calculator(neigh, global_object_table[end_x][end_y])
                 if neigh in open_list:
                     continue
                 if neigh in closed_list:
@@ -58,8 +59,13 @@ def a_star_engine(
 
         closed_list.append(q)
 
+    return finish_x, finish_y
+
 
 if __name__ == "__main__":
 
-    a_star_engine(global_object_table, 0, 3, 4, 3)
+    map = generate_map(start_x, start_y, end_x, end_y, map_size_x, map_size_y, list_of_obstacles)
+    global_object_table = Pole.array_creation(map)
+    x, y = a_star_engine(global_object_table, start_x, start_y, end_x, end_y)
+    print(x, y)
     create_plot(global_object_table)
