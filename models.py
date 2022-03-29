@@ -8,7 +8,7 @@ def must_be_positive(v):
 
 
 def must_be_smaller(v):
-    if v > 20 or v < 5:
+    if v > 15 or v < 5:
         raise ValueError("Map Size must be grater than 5 and smaller than 20")
     return v
 
