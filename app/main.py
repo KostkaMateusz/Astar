@@ -25,7 +25,7 @@ def root(aStarParams: AStarParams):
 
     image = io.BytesIO()
     img = generate_image(**dict_of_parameters)
-    img.savefig(image, format="png")
+    img.savefig(image, format="png", dpi=300, transparent=True)
     image.seek(0)
 
     return StreamingResponse(image, media_type="image/png")

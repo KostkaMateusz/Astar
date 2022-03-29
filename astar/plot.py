@@ -48,7 +48,15 @@ def create_plot(object_table: list[list[Pole]], list_of_obstacles: list[list[int
     # path from start to end
     draw_path(path)
 
-    ax.set_title("Astar")
+    ax.spines["bottom"].set_color("white")
+    ax.spines["left"].set_color("white")
+    ax.spines["top"].set_color("white")
+    ax.spines["right"].set_color("white")
+    ax.tick_params(axis="x", colors="white")
+    ax.tick_params(axis="y", colors="white")
+    ax.xaxis.label.set_color("white")
+    ax.yaxis.label.set_color("white")
+
     plt.xlabel("X")
     plt.ylabel("Y")
     fig.tight_layout()
