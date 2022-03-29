@@ -1,7 +1,7 @@
 import numpy
 import random
-from pole import Pole
-from plot import create_plot
+from .pole import Pole
+from .plot import create_plot
 
 
 def generate_list_random_obstacles(number_of_obstacles, map_size_x: int, map_size_y: int):

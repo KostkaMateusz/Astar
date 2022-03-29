@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from models import AStarParams
-from astar import generate_image
+from astar.astar import generate_image
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,17 +16,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# add cross
 
 
 @app.post("/")
 def root(aStarParams: AStarParams):
 
     dict_of_parameters = dict([ele for ele in aStarParams])
-    print(dict_of_parameters)
-    img = generate_image(**dict_of_parameters)
-    image = io.BytesIO()
 
+    image = io.BytesIO()
+    img = generate_image(**dict_of_parameters)
     img.savefig(image, format="png")
     image.seek(0)
 
