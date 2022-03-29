@@ -54,4 +54,5 @@ def create_plot(object_table: list[list[Pole]], list_of_obstacles: list[list[int
     fig.tight_layout()
     plt.gcf()
     plt.savefig("plot1.png")
-    plt.show()
+    # plt.show()
+    # plt.close()

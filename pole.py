@@ -1,3 +1,6 @@
+import copy
+
+
 class Pole:
     # this filds are for reference to neighbors
     up = None
@@ -61,7 +64,7 @@ class Pole:
             cls.__object_table.append(row___object_table)
         # after creation of a array of object calculate references to neighbors
         Pole.calculate_neighbors()
-        return cls.__object_table
+        return copy.deepcopy(cls.__object_table)
 
     @classmethod
     def calculate_neighbors(cls):

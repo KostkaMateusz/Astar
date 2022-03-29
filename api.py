@@ -1,5 +1,7 @@
+import imp
 from fastapi import FastAPI
 from models import AStarParams
+from astar import generate_image
 
 
 app = FastAPI()
@@ -10,5 +12,10 @@ app = FastAPI()
 
 
 @app.post("/")
-async def root(aStarParams: AStarParams):
-    return {"message": f"{aStarParams}"}
+def root(aStarParams: AStarParams):
+
+    dict_of_parameters = dict([ele for ele in aStarParams])
+    print(dict_of_parameters)
+    generate_image(**dict_of_parameters)
+
+    return aStarParams
