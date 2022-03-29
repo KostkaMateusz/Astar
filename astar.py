@@ -1,18 +1,32 @@
 from pole import Pole
 from plot import create_plot
 import numpy
+import random
 
 start_x = 0
 start_y = 3
 
 
-end_x = 25
-end_y = 25
+end_x = 20
+end_y = 18
 
+weight = 2
 
-map_size_x = 40
+map_size_x = 25
 map_size_y = 30
-list_of_obstacles = [[2, 1], [3, 1], [1, 3], [2, 3], [4, 4]]
+number_of_obstacles = 100
+
+
+def generate_list_random_obstacles(number_of_obstacles, map_size_x: int, map_size_y: int):
+    list_of_obstacles = []
+    for i in range(number_of_obstacles):
+        x = random.randint(1, map_size_x)
+        y = random.randint(1, map_size_y)
+        list_of_obstacles.append([y - 1, x - 1])
+    return list_of_obstacles
+
+
+# list_of_obstacles = [[2, 1], [3, 1], [1, 3], [2, 3], [4, 4]]
 
 
 def generate_map(start_x: int, start_y: int, end_x: int, end_y: int, map_size_x: int, map_size_y: int, list_of_obstacles: list[list[int]]) -> list[list[int]]:
@@ -34,16 +48,9 @@ def a_star_engine(global_object_table: list[list[Pole]], start_x, start_y, end_x
 
     while open_list and not success:
 
-        minimum = 99999
-        index_with_min = -1
-
-        for index, element in enumerate(open_list):
-            if element.value_of_f <= minimum:
-                minimum = element.value_of_f
-                index_with_min = index
-
-        currentNode = open_list[index_with_min]
-        successors = open_list.pop(index_with_min).list_of_neighbors
+        currentNode = min(open_list, key=lambda element: element.value_of_f)
+        index = open_list.index(currentNode)
+        successors = open_list.pop(index).list_of_neighbors
         closed_list.append(currentNode)
 
         if currentNode.value == -1:
@@ -59,7 +66,7 @@ def a_star_engine(global_object_table: list[list[Pole]], start_x, start_y, end_x
 
             child.parent = currentNode
             g = currentNode.g + Pole.distance_calculator(currentNode, child)
-            h = Pole.distance_calculator(child, global_object_table[end_y][end_x]) * 2
+            h = Pole.distance_calculator(child, global_object_table[end_y][end_x]) * weight
 
             if child in open_list:
                 if child.g > g:
@@ -73,6 +80,7 @@ def a_star_engine(global_object_table: list[list[Pole]], start_x, start_y, end_x
 
 if __name__ == "__main__":
 
+    list_of_obstacles = generate_list_random_obstacles(number_of_obstacles, map_size_x, map_size_y)
     map = generate_map(start_x, start_y, end_x, end_y, map_size_x, map_size_y, list_of_obstacles)
     global_object_table = Pole.array_creation(map)
     success, target = a_star_engine(global_object_table, start_x, start_y, end_x, end_y)

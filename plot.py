@@ -32,10 +32,11 @@ def create_plot(object_table: list[list[Pole]], list_of_obstacles: list[list[int
         plt.gca().add_patch(rectangle)
 
     path = Pole.find_path(target)
-
+    # start circle
     circle = plt.Circle(path[0], 0.2, ec="green")
     plt.gca().add_patch(circle)
 
+    # end circle
     circle = plt.Circle(path[-1], 0.2, ec="yellow")
     plt.gca().add_patch(circle)
 
@@ -44,10 +45,13 @@ def create_plot(object_table: list[list[Pole]], list_of_obstacles: list[list[int
         for j in range(len(object_table[1])):
             text = ax.text(j, i, values[i, j], ha="center", va="center", color="w")
 
+    # path from start to end
     draw_path(path)
 
     ax.set_title("Astar")
     plt.xlabel("X")
     plt.ylabel("Y")
     fig.tight_layout()
+    plt.gcf()
+    plt.savefig("plot1.png")
     plt.show()
