@@ -90,10 +90,5 @@ if __name__ == "__main__":
     list_of_obstacles = generate_list_random_obstacles(number_of_obstacles, map_size_x, map_size_y)
     map = generate_map(start_x, start_y, end_x, end_y, map_size_x, map_size_y, list_of_obstacles)
     global_object_table = Pole.array_creation(map)
-    print(id(global_object_table[1][1]._Pole__object_table))
-    print(id(global_object_table[2][2]._Pole__object_table))
-    print(id(global_object_table[1][1].right))
-    print(id(global_object_table[2][2].right))
-
-    # success, target = a_star_engine(global_object_table, start_x, start_y, end_x, end_y, weight)
-    # create_plot(global_object_table, list_of_obstacles, success, target)
+    success, target = a_star_engine(global_object_table, start_x, start_y, end_x, end_y, weight)
+    create_plot(global_object_table, list_of_obstacles, success, target)

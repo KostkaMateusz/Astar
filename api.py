@@ -1,4 +1,3 @@
-import imp
 from fastapi import FastAPI
 from models import AStarParams
 from astar import generate_image
@@ -7,7 +6,6 @@ from astar import generate_image
 app = FastAPI()
 
 
-# then generate one image
 # then send plot
 
 

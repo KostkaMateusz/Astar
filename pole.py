@@ -2,12 +2,10 @@ import copy
 
 
 class Pole:
-    # this filds are for reference to neighbors
     up = None
     right = None
     down = None
     left = None
-    __object_table = []
     h = 0
     g = 0
     parent = None
@@ -33,17 +31,17 @@ class Pole:
     def value_of_f(self):
         return self.h + self.g
 
-    @classmethod
-    def print_table(cls):
-        for row in cls.__object_table:
+    @staticmethod
+    def print_table(table):
+        for row in table:
             table_row = ""
             for element in row:
                 table_row += f"X:{element.x_position} Y:{element.y_position} F:{element.value_of_f} G:{element.g} H:{element.h} |"
             print(table_row)
 
-    @classmethod
-    def print_all_items(cls):
-        for row in cls.__object_table:
+    @staticmethod
+    def print_all_items(table):
+        for row in table:
             for element in row:
                 print(element)
                 print("UP:" + str(element.up))
@@ -55,37 +53,38 @@ class Pole:
                 print("F:" + str(element.value_of_f))
                 print("________________")
 
-    @classmethod
-    def array_creation(cls, table_of_elements: list[list[int]]) -> list[list]:
+    @staticmethod
+    def array_creation(table_of_elements: list[list[int]]) -> list[list]:
+        table = list()
         for row_counter, row in enumerate(table_of_elements):
-            row___object_table = []
+            row_table = list()
             for columne_counter, element_value in enumerate(row):
-                row___object_table.append(Pole(columne_counter, row_counter, element_value))
-            cls.__object_table.append(row___object_table)
+                row_table.append(Pole(columne_counter, row_counter, element_value))
+            table.append(row_table)
         # after creation of a array of object calculate references to neighbors
-        Pole.calculate_neighbors()
-        return copy.deepcopy(cls.__object_table)
+        Pole.calculate_neighbors(table)
+        return copy.deepcopy(table)
 
-    @classmethod
-    def calculate_neighbors(cls):
-        for row in cls.__object_table:
+    @staticmethod
+    def calculate_neighbors(table):
+        for row in table:
             for element in row:
                 neighbor_addreses_up_y = element.y_position - 1
                 neighbor_addreses_right_x = element.x_position + 1
                 neighbor_addreses_down_y = element.y_position + 1
                 neighbor_addreses_left_x = element.x_position - 1
 
-                if neighbor_addreses_up_y >= 0 and neighbor_addreses_up_y <= len(cls.__object_table) - 1:
-                    cls.__object_table[element.y_position][element.x_position].up = cls.__object_table[neighbor_addreses_up_y][element.x_position]
+                if neighbor_addreses_up_y >= 0 and neighbor_addreses_up_y <= len(table) - 1:
+                    table[element.y_position][element.x_position].up = table[neighbor_addreses_up_y][element.x_position]
 
                 if neighbor_addreses_right_x >= 0 and neighbor_addreses_right_x <= len(row) - 1:
-                    cls.__object_table[element.y_position][element.x_position].right = cls.__object_table[element.y_position][neighbor_addreses_right_x]
+                    table[element.y_position][element.x_position].right = table[element.y_position][neighbor_addreses_right_x]
 
-                if neighbor_addreses_down_y >= 0 and neighbor_addreses_down_y <= len(cls.__object_table) - 1:
-                    cls.__object_table[element.y_position][element.x_position].down = cls.__object_table[neighbor_addreses_down_y][element.x_position]
+                if neighbor_addreses_down_y >= 0 and neighbor_addreses_down_y <= len(table) - 1:
+                    table[element.y_position][element.x_position].down = table[neighbor_addreses_down_y][element.x_position]
 
                 if neighbor_addreses_left_x >= 0 and neighbor_addreses_left_x <= len(row) - 1:
-                    cls.__object_table[element.y_position][element.x_position].left = cls.__object_table[element.y_position][neighbor_addreses_left_x]
+                    table[element.y_position][element.x_position].left = table[element.y_position][neighbor_addreses_left_x]
 
     @staticmethod
     def distance_calculator(place1, place2) -> int:
