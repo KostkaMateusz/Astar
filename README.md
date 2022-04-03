@@ -1,9 +1,16 @@
 # A* algorithm
  
 ---
-What is a star algoritm?
-Image
-Some speed tests. 
+**What is A star search algoritm?**
+A* is a graph traversal and path search algorithm. It is popular for finding a path on a grid. Many games and web-bases maps use this algorithm to find the shortest path very efficiently.
+
+**Example**
+![A star Map](static\image.png)
+
+**About this implementation**
+
+In this implementation core functionality has a Field class. Each field on a grid is a Field class object. Those object are binded in a array of object that visualization is showed in the picture above.   
+
 
 --- 
 ### Core Technologies
@@ -13,16 +20,16 @@ Some speed tests.
 - fastAPI
 - pydatnic 
 ---
-### The api is hosted [here](https://book-library-app-project.herokuapp.com//api/v1/authors?fields=id,first_name,birth_date&sort=birth_date&birth_date[gte]=21-06-1948&page=1&limit=4). 
+### The APP is hosted [here](https://fastapi-a-star.herokuapp.com/). 
 
 ---
-The **documentation** can be found in **documentation.html** or [here](https://documenter.getpostman.com/view/17812835/UVknuwQM)
+The **documentation** of the api can be found in [here](https://fastapi-a-star.herokuapp.com/docs)
 
 ---
 ### Setup
 
 - clone repository\
-`git clone https://github.com/KostkaMateusz/flask_start.git`
+`git clone https://github.com/KostkaMateusz/Astar.git`
 
 - create virtual environment\
 `python -m venv venv`
@@ -30,10 +37,6 @@ The **documentation** can be found in **documentation.html** or [here](https://d
 - install packages from requirements.txt\
 `pip install -r requirements.txt`
 
-- Start flask server\
-`flask run` 
+- Start fastAPI server\
+`uvicorn app.main:app --reload` 
 
-
-### Tests
-In order to execute test locaten in test run\
-`python -m pytest tests/`

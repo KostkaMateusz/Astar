@@ -26,7 +26,6 @@ class AStarParams(BaseModel):
     start_y: int
     end_x: int
     end_y: int
-    random: bool
     weight: int
 
     number_of_obstacles: int

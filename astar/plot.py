@@ -1,4 +1,4 @@
-from .pole import Pole
+from .field import Field
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -9,7 +9,7 @@ def draw_path(path):
     plt.plot(x, y, color="green")
 
 
-def create_plot(object_table: list[list[Pole]], list_of_obstacles: list[list[int]], success: bool, target: Pole):
+def create_plot(object_table: list[list[Field]], list_of_obstacles: list[list[int]], success: bool, target: Field):
 
     values = np.array([[element.value_of_f for element in row] for row in object_table])
 
@@ -31,7 +31,7 @@ def create_plot(object_table: list[list[Pole]], list_of_obstacles: list[list[int
         rectangle = plt.Rectangle((-0.5 + obstacles[0], -0.5 + obstacles[1]), 1, 1, ec="red")
         plt.gca().add_patch(rectangle)
 
-    path = Pole.find_path(target)
+    path = Field.find_path(target)
     # start circle
     circle = plt.Circle(path[0], 0.2, ec="green")
     plt.gca().add_patch(circle)
@@ -47,7 +47,7 @@ def create_plot(object_table: list[list[Pole]], list_of_obstacles: list[list[int
 
     # path from start to end
     draw_path(path)
-
+    # set white colors
     ax.spines["bottom"].set_color("white")
     ax.spines["left"].set_color("white")
     ax.spines["top"].set_color("white")

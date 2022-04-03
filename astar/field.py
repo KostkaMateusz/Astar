@@ -1,7 +1,7 @@
 import copy
 
 
-class Pole:
+class Field:
     up = None
     right = None
     down = None
@@ -59,10 +59,10 @@ class Pole:
         for row_counter, row in enumerate(table_of_elements):
             row_table = list()
             for columne_counter, element_value in enumerate(row):
-                row_table.append(Pole(columne_counter, row_counter, element_value))
+                row_table.append(Field(columne_counter, row_counter, element_value))
             table.append(row_table)
         # after creation of a array of object calculate references to neighbors
-        Pole.calculate_neighbors(table)
+        Field.calculate_neighbors(table)
         return copy.deepcopy(table)
 
     @staticmethod
@@ -96,7 +96,7 @@ class Pole:
     def find_path(Node):
         path = []
 
-        def way(Node: Pole):
+        def way(Node: Field):
             if Node != None:
                 path.append([Node.x_position, Node.y_position])
                 way(Node.parent)

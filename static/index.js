@@ -17,7 +17,6 @@ function sendJSON() {
         start_y: start_y.value,
         end_x: end_x.value,
         end_y: end_y.value,
-        random: true,
         weight: weight.value,
         number_of_obstacles: number_of_obstacles.value,
     });

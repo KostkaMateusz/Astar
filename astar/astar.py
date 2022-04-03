@@ -1,19 +1,16 @@
 import numpy
 import random
-from .pole import Pole
+from .field import Field
 from .plot import create_plot
 
 
 def generate_list_random_obstacles(number_of_obstacles, map_size_x: int, map_size_y: int):
     list_of_obstacles = []
-    for i in range(number_of_obstacles):
+    for _ in range(number_of_obstacles):
         x = random.randint(1, map_size_x)
         y = random.randint(1, map_size_y)
         list_of_obstacles.append([y - 1, x - 1])
     return list_of_obstacles
-
-
-# list_of_obstacles = [[2, 1], [3, 1], [1, 3], [2, 3], [4, 4]]
 
 
 def generate_map(start_x: int, start_y: int, end_x: int, end_y: int, map_size_x: int, map_size_y: int, list_of_obstacles: list[list[int]]) -> list[list[int]]:
@@ -27,7 +24,7 @@ def generate_map(start_x: int, start_y: int, end_x: int, end_y: int, map_size_x:
     return map
 
 
-def a_star_engine(global_object_table: list[list[Pole]], start_x, start_y, end_x, end_y, weight):
+def a_star_engine(global_object_table: list[list[Field]], start_x, start_y, end_x, end_y, weight):
 
     open_list = []
     closed_list = []
@@ -53,8 +50,8 @@ def a_star_engine(global_object_table: list[list[Pole]], start_x, start_y, end_x
                 continue
 
             child.parent = currentNode
-            g = currentNode.g + Pole.distance_calculator(currentNode, child)
-            h = Pole.distance_calculator(child, global_object_table[end_y][end_x]) * weight
+            g = currentNode.g + Field.distance_calculator(currentNode, child)
+            h = Field.distance_calculator(child, global_object_table[end_y][end_x]) * weight
 
             if child in open_list:
                 if child.g > g:
@@ -66,11 +63,11 @@ def a_star_engine(global_object_table: list[list[Pole]], start_x, start_y, end_x
     return success, currentNode
 
 
-def generate_image(map_size_x, map_size_y, start_x, start_y, end_x, end_y, random, weight, number_of_obstacles):
+def generate_image(map_size_x, map_size_y, start_x, start_y, end_x, end_y, weight, number_of_obstacles):
 
     list_of_obstacles = generate_list_random_obstacles(number_of_obstacles, map_size_x, map_size_y)
     map = generate_map(start_x, start_y, end_x, end_y, map_size_x, map_size_y, list_of_obstacles)
-    global_object_table = Pole.array_creation(map)
+    global_object_table = Field.array_creation(map)
     success, target = a_star_engine(global_object_table, start_x, start_y, end_x, end_y, weight)
     image = create_plot(global_object_table, list_of_obstacles, success, target)
 
@@ -90,6 +87,6 @@ if __name__ == "__main__":
 
     list_of_obstacles = generate_list_random_obstacles(number_of_obstacles, map_size_x, map_size_y)
     map = generate_map(start_x, start_y, end_x, end_y, map_size_x, map_size_y, list_of_obstacles)
-    global_object_table = Pole.array_creation(map)
+    global_object_table = Field.array_creation(map)
     success, target = a_star_engine(global_object_table, start_x, start_y, end_x, end_y, weight)
     create_plot(global_object_table, list_of_obstacles, success, target)
