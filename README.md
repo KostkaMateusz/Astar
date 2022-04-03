@@ -5,7 +5,7 @@
 A* is a graph traversal and path search algorithm. It is popular for finding a path on a grid. Many games and web-bases maps use this algorithm to find the shortest path very efficiently.
 
 **Example**
-![A star Map](static\image.png)
+![A star Map](./static/image.png)
 
 **About this implementation**
 
