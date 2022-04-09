@@ -40,6 +40,22 @@ class Field:
             print(table_row)
 
     @staticmethod
+    def generate_json(table):
+        object_list = []
+        for row in table:
+            for element in row:
+                object = {
+                    "X": element.x_position,
+                    "Y": element.y_position,
+                    "V": int(element.value),
+                    "F": element.value_of_f,
+                    "G": element.g,
+                    "H": element.h,
+                }
+                object_list.append(object)
+        return object_list
+
+    @staticmethod
     def print_all_items(table):
         for row in table:
             for element in row:

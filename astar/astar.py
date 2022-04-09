@@ -74,6 +74,19 @@ def generate_image(map_size_x, map_size_y, start_x, start_y, end_x, end_y, weigh
     return image
 
 
+def generate_object_list(map_size_x, map_size_y, start_x, start_y, end_x, end_y, weight, number_of_obstacles):
+
+    list_of_obstacles = generate_list_random_obstacles(number_of_obstacles, map_size_x, map_size_y)
+    map = generate_map(start_x, start_y, end_x, end_y, map_size_x, map_size_y, list_of_obstacles)
+    global_object_table = Field.array_creation(map)
+    success, target = a_star_engine(global_object_table, start_x, start_y, end_x, end_y, weight)
+    objects = Field.generate_json(global_object_table)
+
+    path_dict = [{"X": val[0], "Y": val[1]} for val in Field.find_path(target)]
+
+    return objects, path_dict
+
+
 if __name__ == "__main__":
 
     map_size_x = 11

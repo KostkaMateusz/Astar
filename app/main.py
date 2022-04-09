@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from .models import AStarParams
-from astar.astar import generate_image
+from astar.astar import generate_image, generate_object_list
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -48,3 +48,22 @@ async def root(aStarParams: AStarParams):
     image.seek(0)
 
     return StreamingResponse(image, media_type="image/png")
+
+
+@app.post("/astar")
+async def root(aStarParams: AStarParams):
+    """
+    Generate A star heat map based on a sended parameters.
+    **map_size_x** Map size X parameter
+    **map_size_y** Map size Y parameter
+    **start_x** Value of a start x co-ordinates
+    **start_y** Value of a start y co-ordinates
+    **end_x** Value of a end x co-ordinates
+    **end_y** Value of a end y co-ordinates
+    **weight** Value of weight for a prize algorithm
+    """
+    dict_of_parameters = dict([ele for ele in aStarParams])
+
+    objects = generate_object_list(**dict_of_parameters)
+
+    return objects
