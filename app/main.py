@@ -64,6 +64,8 @@ async def root(aStarParams: AStarParams):
     """
     dict_of_parameters = dict([ele for ele in aStarParams])
 
-    objects = generate_object_list(**dict_of_parameters)
+    objects, path = generate_object_list(**dict_of_parameters)
 
-    return objects
+    polses = {"table": objects, "path": path}
+
+    return polses

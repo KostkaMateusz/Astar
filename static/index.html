@@ -7,51 +7,53 @@
     <title>A*</title>
     <script src="index.js"></script>
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
+    
+        <div class="content">
+            <h1>A-star algorithm</h1>
 
-    <div class="sidenav">
-        <h1>A-star algorithm</h1>
-
-        <div class="input1">
-            <label class="Label" for="map_size_x">Horizontal Map Size</label>
-            <input type="text" id="map_size_x" placeholder="map size x" value="10">
-        </div>
-        <div class="input1">
-            <label class="Label" for="map_size_y">Vetrical Map Size</label>
-            <input type="text" id="map_size_y" placeholder="map size y" value="10">
-        </div>
-        <div class="input1">
-            <label class="Label" for="start_x">Start Coordinate:X</label>
-            <input type="text" id="start_x" placeholder="start x" value="2">
-        </div>
-        <div class="input1">
-            <label class="Label" for="start_y">Start Coordinate:Y</label>
-            <input type="text" id="start_y" placeholder="start y" value="2">
-        </div>
-        <div class="input1">
-            <label class="Label" for="end_x">Finish Coordinate:X</label>
-            <input type="text" id="end_x" placeholder="end x" value="9">
-        </div>
-        <div class="input1">
-            <label class="Label" for="end_y">Finish Coordinate:Y</label>
-            <input type="text" id="end_y" placeholder="end y" value="8">
-        </div>
-        <div class="input1">
-            <label class="Label" for="weight">Weight of Reward</label>
-            <input type="text" id="weight" placeholder="weight" value="2">
-        </div>
-        <div class="input1">
-            <label class="Label" for="number_of_obstacles">Random obstacles</label>
-            <input type="text" id="number_of_obstacles" placeholder="number of obstacles" value="10">
-        </div>
+            <div class="input1">
+                <label class="Label" for="map_size_x">Horizontal Map Size</label>
+                <input type="text" id="map_size_x" placeholder="map size x" value="10">
+            </div>
+            <div class="input1">
+                <label class="Label" for="map_size_y">Vetrical Map Size</label>
+                <input type="text" id="map_size_y" placeholder="map size y" value="10">
+            </div>
+            <div class="input1">
+                <label class="Label" for="start_x">Start Coordinate:X</label>
+                <input type="text" id="start_x" placeholder="start x" value="2">
+            </div>
+            <div class="input1">
+                <label class="Label" for="start_y">Start Coordinate:Y</label>
+                <input type="text" id="start_y" placeholder="start y" value="2">
+            </div>
+            <div class="input1">
+                <label class="Label" for="end_x">Finish Coordinate:X</label>
+                <input type="text" id="end_x" placeholder="end x" value="9">
+            </div>
+            <div class="input1">
+                <label class="Label" for="end_y">Finish Coordinate:Y</label>
+                <input type="text" id="end_y" placeholder="end y" value="8">
+            </div>
+            <div class="input1">
+                <label class="Label" for="weight">Weight of Reward</label>
+                <input type="text" id="weight" placeholder="weight" value="2">
+            </div>
+            <div class="input1">
+                <label class="Label" for="number_of_obstacles">Random obstacles</label>
+                <input type="text" id="number_of_obstacles" placeholder="number of obstacles" value="10">
+            </div>
 
         <button class="button" onclick="sendJSON()">Send JSON</button>
-    </div>
-    <img id="photo" src="image.png" alt="A-star heat map">
-    <footer>
+       
+    <div id="result"></div></div>
 
+    <footer>
+        <div class="footer">Mateusz Kostka</div>
     </footer>
 
 </html>

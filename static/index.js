@@ -21,24 +21,45 @@ function sendJSON() {
         number_of_obstacles: number_of_obstacles.value,
     });
 
-    fetch("https://fastapi-a-star.herokuapp.com/engine", {
+    fetch("http://127.0.0.1:8000/astar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: data,
     })
-        .then((response) => response.arrayBuffer())
-        .then((data) => {
+        .then(response => response.json())
+        .then(data => createTable(data));
 
-            const arrayBufferView = new Uint8Array(data);
-            const blob = new Blob([arrayBufferView], { type: "image/png" });
-            const urlCreator = window.URL || window.webkitURL;
-            const imageUrl = urlCreator.createObjectURL(blob);
-            const img = document.querySelector("#photo");
-            img.src = imageUrl;
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+}
+
+function createTable(input) {
+    var data = input.table;
+    var path = input.path;
+    var table = '<table >';
+
+    for (i = 0; i <= data.length - 1; i++) {
+        table += "<tr>";
+        for (j = 0; j <= data[0].length - 1; j++) {
+            if (checkIfPath(i, j, path))
+                table += "<td class=" + "greenElement" + ">" + data[i][j].F + "</td>";
+            else if (data[i][j].V == 0)
+                table += "<td class=" + "redElement" + ">" + data[i][j].F + "</td>";
+            else
+                table += "<td class=" + "Element" + ">" + data[i][j].F + "</td>";
+        }
+        table += "</tr>";
+    }
+    table += "</table>";
+
+    document.getElementById("result").innerHTML = table;
+}
+
+function checkIfPath(x, y, path) {
+
+    for (var element of path) {
+        if (x === element[0] && y === element[1]) return true;
+
+    }
+    return false
 }

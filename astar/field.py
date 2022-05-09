@@ -43,6 +43,7 @@ class Field:
     def generate_json(table):
         object_list = []
         for row in table:
+            object_row = []
             for element in row:
                 object = {
                     "X": element.x_position,
@@ -52,7 +53,8 @@ class Field:
                     "G": element.g,
                     "H": element.h,
                 }
-                object_list.append(object)
+                object_row.append(object)
+            object_list.append(object_row)
         return object_list
 
     @staticmethod

@@ -82,9 +82,11 @@ def generate_object_list(map_size_x, map_size_y, start_x, start_y, end_x, end_y,
     success, target = a_star_engine(global_object_table, start_x, start_y, end_x, end_y, weight)
     objects = Field.generate_json(global_object_table)
 
-    path_dict = [{"X": val[0], "Y": val[1]} for val in Field.find_path(target)]
+    path_X = [val[0] for val in Field.find_path(target)]
+    path_Y = [val[1] for val in Field.find_path(target)]
+    path_dict = {"X": path_X, "Y": path_Y}
 
-    return objects, path_dict
+    return objects, Field.find_path(target)
 
 
 if __name__ == "__main__":
