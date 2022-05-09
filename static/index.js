@@ -34,6 +34,16 @@ function sendJSON() {
 }
 
 function createTable(input) {
+
+    function checkIfPath(x, y, path) {
+
+        for (var element of path) {
+            if (x === element[0] && y === element[1]) return true;
+
+        }
+        return false
+    }
+
     var data = input.table;
     var path = input.path;
     var table = '<table >';
@@ -57,16 +67,12 @@ function createTable(input) {
     document.getElementById("result").innerHTML = table;
 }
 
-function checkIfPath(x, y, path) {
 
-    for (var element of path) {
-        if (x === element[0] && y === element[1]) return true;
-
-    }
-    return false
-}
-
-
+let counter = 0;
+let arr = [{ "x": 0, "y": 0 }, { "x": 0, "y": 0 }];
 function klik(x, y) {
-    console.log("x:" + x + ", y:" + y)
+    let info = { "x": x, "y": y };
+    arr.push(info);
 }
+
+console.log(arr)
