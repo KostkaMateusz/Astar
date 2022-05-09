@@ -40,13 +40,15 @@ function createTable(input) {
 
     for (i = 0; i <= data.length - 1; i++) {
         table += "<tr>";
+        let color = ""
         for (j = 0; j <= data[0].length - 1; j++) {
             if (checkIfPath(i, j, path))
-                table += "<td class=" + "greenElement" + ">" + data[i][j].F + "</td>";
+                color = "greenElement";
             else if (data[i][j].V == 0)
-                table += "<td class=" + "redElement" + ">" + data[i][j].F + "</td>";
+                color = "redElement";
             else
-                table += "<td class=" + "Element" + ">" + data[i][j].F + "</td>";
+                color = "Element";
+            table += "<td class=" + color + ">" + `<button class="button" onclick="klik(${i},${j})">` + data[i][j].F + "</button>" + "</td>";
         }
         table += "</tr>";
     }
@@ -62,4 +64,9 @@ function checkIfPath(x, y, path) {
 
     }
     return false
+}
+
+
+function klik(x, y) {
+    console.log("x:" + x + ", y:" + y)
 }
