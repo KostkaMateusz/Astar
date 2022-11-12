@@ -8,6 +8,9 @@ import io
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 
+import sys
+sys.setrecursionlimit(10000)
+
 app = FastAPI()
 
 
