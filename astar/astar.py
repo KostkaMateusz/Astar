@@ -4,15 +4,6 @@ from .field import Field
 from .plot import create_plot
 
 
-def generate_list_random_obstacles(number_of_obstacles, map_size_x: int, map_size_y: int):
-    list_of_obstacles = []
-    for _ in range(number_of_obstacles):
-        x = random.randint(1, map_size_x)
-        y = random.randint(1, map_size_y)
-        list_of_obstacles.append([y - 1, x - 1])
-    return list_of_obstacles
-
-
 def generate_map(start_x: int, start_y: int, end_x: int, end_y: int, map_size_x: int, map_size_y: int, list_of_obstacles: list[list[int]]) -> list[list[int]]:
     """elements 1 is normal place; element 0 is an obstacle; element -1 is meta; element 2 is start"""
     map = numpy.full((map_size_x, map_size_y), 1)
@@ -63,45 +54,29 @@ def a_star_engine(global_object_table: list[list[Field]], start_x, start_y, end_
     return success, currentNode
 
 
-def generate_image(map_size_x, map_size_y, start_x, start_y, end_x, end_y, weight, number_of_obstacles):
-
-    list_of_obstacles = generate_list_random_obstacles(number_of_obstacles, map_size_x, map_size_y)
-    map = generate_map(start_x, start_y, end_x, end_y, map_size_x, map_size_y, list_of_obstacles)
-    global_object_table = Field.array_creation(map)
-    success, target = a_star_engine(global_object_table, start_x, start_y, end_x, end_y, weight)
-    image = create_plot(global_object_table, list_of_obstacles, success, target)
-
-    return image
+def find_values(array: list[list[int]],value:int):
+    for i,x in enumerate(array):
+        if value in x:
+            return i,x.index(value)
 
 
-def generate_object_list(map_size_x, map_size_y, start_x, start_y, end_x, end_y, weight, number_of_obstacles):
+def generate_object_list(input_map):
 
-    list_of_obstacles = generate_list_random_obstacles(number_of_obstacles, map_size_x, map_size_y)
-    map = generate_map(start_x, start_y, end_x, end_y, map_size_x, map_size_y, list_of_obstacles)
-    global_object_table = Field.array_creation(map)
+    start_x,start_y=find_values(input_map,2)
+    end_x,end_y=find_values(input_map,-1)
+    weight=1
+    
+    global_object_table = Field.array_creation(input_map)
     success, target = a_star_engine(global_object_table, start_x, start_y, end_x, end_y, weight)
     objects = Field.generate_json(global_object_table)
 
     path_X = [val[0] for val in Field.find_path(target)]
     path_Y = [val[1] for val in Field.find_path(target)]
-    path_dict = {"X": path_X, "Y": path_Y}
+    path = [{"X":path_X[i], "Y":path_Y[i]} for i in range(0, len(path_X))]
 
-    return objects, Field.find_path(target)
+    return objects, path
+
+    
 
 
-if __name__ == "__main__":
 
-    map_size_x = 11
-    map_size_y = 11
-    start_x = 3
-    start_y = 2
-    end_x = 10
-    end_y = 10
-    weight = 2
-    number_of_obstacles = 5
-
-    list_of_obstacles = generate_list_random_obstacles(number_of_obstacles, map_size_x, map_size_y)
-    map = generate_map(start_x, start_y, end_x, end_y, map_size_x, map_size_y, list_of_obstacles)
-    global_object_table = Field.array_creation(map)
-    success, target = a_star_engine(global_object_table, start_x, start_y, end_x, end_y, weight)
-    create_plot(global_object_table, list_of_obstacles, success, target)

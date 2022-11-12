@@ -1,6 +1,7 @@
 from fastapi import FastAPI
-from .models import AStarParams
-from astar.astar import generate_image, generate_object_list
+from .models import InputMap
+#from astar.astar import generate_image, generate_object_list
+from astar.astar import generate_object_list
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -29,43 +30,12 @@ async def root():
     return RedirectResponse("/static/index.html")
 
 
-@app.post("/engine")
-async def root(aStarParams: AStarParams):
-    """
-    Generate A star heat map based on a sended parameters.
-    **map_size_x** Map size X parameter
-    **map_size_y** Map size Y parameter
-    **start_x** Value of a start x co-ordinates
-    **start_y** Value of a start y co-ordinates
-    **end_x** Value of a end x co-ordinates
-    **end_y** Value of a end y co-ordinates
-    **weight** Value of weight for a prize algorithm
-    """
-    dict_of_parameters = dict([ele for ele in aStarParams])
-    image = io.BytesIO()
-    img = generate_image(**dict_of_parameters)
-    img.savefig(image, format="png", dpi=300, transparent=True)
-    image.seek(0)
-
-    return StreamingResponse(image, media_type="image/png")
-
-
 @app.post("/astar")
-async def root(aStarParams: AStarParams):
-    """
-    Generate A star heat map based on a sended parameters.
-    **map_size_x** Map size X parameter
-    **map_size_y** Map size Y parameter
-    **start_x** Value of a start x co-ordinates
-    **start_y** Value of a start y co-ordinates
-    **end_x** Value of a end x co-ordinates
-    **end_y** Value of a end y co-ordinates
-    **weight** Value of weight for a prize algorithm
-    """
-    dict_of_parameters = dict([ele for ele in aStarParams])
+async def root(input:InputMap):
+    
 
-    objects, path = generate_object_list(**dict_of_parameters)
+    objects, path = generate_object_list(input.input_map)
 
-    polses = {"table": objects, "path": path}
+    output_map = {"Map": objects, "Path": path}
 
-    return polses
+    return output_map
