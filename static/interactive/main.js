@@ -31,8 +31,9 @@ function generateTable() {
             // the end of the table row
             const cell = document.createElement("td");
             const button = document.createElement("button");
-
-            button.onclick = function (button) { OnClickAction(button) }
+            button.classList.add("table-button");
+            button.style.background = "purple";
+            button.onclick = function (button) { OnClickAction(button) };
             button.val = FieldValues.Normal;
             buttonListRow.push(button);
             cell.appendChild(button);
@@ -46,8 +47,10 @@ function generateTable() {
 
     // put the <tbody> in the <table>
     tbl.appendChild(tblBody);
+    tbl.setAttribute('id', "table-map");
     // appends <table> into <body>
-    document.body.appendChild(tbl);
+    document.getElementById("map").appendChild(tbl);
+    // document.body.appendChild(tbl);
 
 }
 
@@ -71,7 +74,7 @@ function OnClickAction(button) {
             thisButton.style.backgroundColor = "red";
             break;
         case FieldValues.Normal:
-            thisButton.style.backgroundColor = "white";
+            thisButton.style.backgroundColor = "purple";
             break;
         case FieldValues.Start:
             thisButton.style.backgroundColor = "green";

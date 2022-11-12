@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <script src="main.js"></script>
+
+  <div id="top-menu">
+  
+    <div class="form">
+      <label for="name">Vertical Map Size:</label>
+      <input type="number" name="name" id="X" required>
+    </div>
+  
+    <div class="form">
+      <label for="email">Horizontal Map Size:</label>
+      <input type="number" name="email" id="Y" required>
+    </div>
+  
+    <button  class="button" onclick="generateTable()">Generate Map</button>
+  </div>
+  </form>
+  
+  <div id="map"></div>
+  <button class="button" onclick="send()">Start</button>
+
+
+</body>
+</html>
