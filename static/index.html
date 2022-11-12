@@ -1,59 +1,26 @@
 <!DOCTYPE html>
-<html lang="pl">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A*</title>
-    <script src="index.js"></script>
-    <link rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
-
 <body>
-    
-        <div class="content">
-            <h1>A-star algorithm</h1>
-
-            <div class="input1">
-                <label class="Label" for="map_size_x">Horizontal Map Size</label>
-                <input type="text" id="map_size_x" placeholder="map size x" value="10">
-            </div>
-            <div class="input1">
-                <label class="Label" for="map_size_y">Vetrical Map Size</label>
-                <input type="text" id="map_size_y" placeholder="map size y" value="10">
-            </div>
-            <div class="input1">
-                <label class="Label" for="start_x">Start Coordinate:X</label>
-                <input type="text" id="start_x" placeholder="start x" value="2">
-            </div>
-            <div class="input1">
-                <label class="Label" for="start_y">Start Coordinate:Y</label>
-                <input type="text" id="start_y" placeholder="start y" value="2">
-            </div>
-            <div class="input1">
-                <label class="Label" for="end_x">Finish Coordinate:X</label>
-                <input type="text" id="end_x" placeholder="end x" value="9">
-            </div>
-            <div class="input1">
-                <label class="Label" for="end_y">Finish Coordinate:Y</label>
-                <input type="text" id="end_y" placeholder="end y" value="8">
-            </div>
-            <div class="input1">
-                <label class="Label" for="weight">Weight of Reward</label>
-                <input type="text" id="weight" placeholder="weight" value="2">
-            </div>
-            <div class="input1">
-                <label class="Label" for="number_of_obstacles">Random obstacles</label>
-                <input type="text" id="number_of_obstacles" placeholder="number of obstacles" value="10">
-            </div>
-
-        <button class="button" onclick="sendJSON()">Send JSON</button>
-       
-    <div id="result"></div></div>
-
-    <footer>
-        <div class="footer">Mateusz Kostka</div>
-    </footer>
-
+  <script src="main.js"></script>
+  <form action="" method="get" class="form-example">
+    <div class="form">
+      <label for="name">Vertical Map Size:</label>
+      <input type="number" name="name" id="X" required>
+    </div>
+    <div class="form">
+      <label for="email">Horizontal Map Size:</label>
+      <input type="number" name="email" id="Y" required>
+    </div>
+    <div class="form">
+      <input type="button" value="Generate Map" onclick="generateTable()" />
+    </div>    
+  </form>
+  <input type="button" value="Start" onclick="send()" />
+</body>
 </html>

@@ -32,10 +32,9 @@ async def root():
 
 @app.post("/astar")
 async def root(input:InputMap):
-    
 
-    objects, path = generate_object_list(input.input_map)
+    path = generate_object_list(input.input_map)
 
-    output_map = {"Map": objects, "Path": path}
+    output_map = {"Path": path}
 
     return output_map

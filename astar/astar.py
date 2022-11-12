@@ -68,13 +68,12 @@ def generate_object_list(input_map):
     
     global_object_table = Field.array_creation(input_map)
     success, target = a_star_engine(global_object_table, start_x, start_y, end_x, end_y, weight)
-    objects = Field.generate_json(global_object_table)
 
     path_X = [val[0] for val in Field.find_path(target)]
     path_Y = [val[1] for val in Field.find_path(target)]
     path = [{"X":path_X[i], "Y":path_Y[i]} for i in range(0, len(path_X))]
 
-    return objects, path
+    return path
 
     
 

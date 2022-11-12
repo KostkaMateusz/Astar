@@ -19,6 +19,9 @@ from pydantic import BaseModel, ValidationError, validator
 #     return v
 
 
+class Field(BaseModel):
+    value:int
+
 class InputMap(BaseModel):
     input_map:list[list[int]]
 
