@@ -12,6 +12,17 @@ let FieldValues = {
 
 //Create Table
 function generateTable() {
+    document.querySelector("#photo").style.opacity = 0;
+    document.querySelector("#photo").style.zIndex = -11;
+
+    //check if ther eis prevous table
+    if (document.getElementById("map").hasChildNodes()) {
+        var prevTables = document.getElementById("map").childNodes;
+        document.getElementById("map").removeChild(prevTables[0]);
+        console.log("here")
+        buttonList = []
+    }
+
     //get data from the form
     var xSize = document.getElementById("X").value;
     var ySize = document.getElementById("Y").value;
@@ -50,7 +61,6 @@ function generateTable() {
     tbl.setAttribute('id', "table-map");
     // appends <table> into <body>
     document.getElementById("map").appendChild(tbl);
-    // document.body.appendChild(tbl);
 
 }
 
@@ -61,9 +71,9 @@ function OnClickAction(button) {
 
     //value-color map
     if (thisButton.val == 2) thisButton.val = FieldValues.Meta;
+    else if (thisButton.val == 1) thisButton.val = FieldValues.Start;
     else if (thisButton.val == -1) thisButton.val = FieldValues.Obstacle;
     else if (thisButton.val == 0) thisButton.val = FieldValues.Normal;
-    else if (thisButton.val == 1) thisButton.val = FieldValues.Start;
 
     // change color based on value
     switch (thisButton.val) {
@@ -108,7 +118,10 @@ function send() {
         },
         body: uploadDataJSON,
     }).then(response => response.json())
-        .then(data => ColorPath(data));
+        .then(data => ColorPath(data))
+        .catch((err) => {
+            console.log(err)
+        });
 }
 
 function ColorPath(data) {
@@ -119,3 +132,35 @@ function ColorPath(data) {
 }
 
 
+function generateHeatMap() {
+
+
+    document.querySelector("#photo").style.opacity = 100;
+    document.querySelector("#photo").style.zIndex = 1;
+
+    let uploadDataJSON = JSON.stringify({
+        input_map: GenerateUploadData(buttonList)
+    })
+
+    fetch("http://127.0.0.1:8000/astar/heatmap", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: uploadDataJSON,
+    })
+        .then((response) => response.arrayBuffer())
+        .then((data) => {
+
+            const arrayBufferView = new Uint8Array(data);
+            const blob = new Blob([arrayBufferView], { type: "image/png" });
+            const urlCreator = window.URL || window.webkitURL;
+            const imageUrl = urlCreator.createObjectURL(blob);
+            const img = document.querySelector("#photo");
+            img.src = imageUrl;
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+
+}

@@ -68,7 +68,7 @@ def find_values(array: list[list[int]],value:int):
         if value in x:
             return i,x.index(value)
 
-#ToDO find obstacles in json
+
 
 def generate_image(map_size_x, map_size_y, start_x, start_y, end_x, end_y, weight, number_of_obstacles):
 
@@ -80,14 +80,25 @@ def generate_image(map_size_x, map_size_y, start_x, start_y, end_x, end_y, weigh
 
     return image
 
-def generate_image_from_json(input_map,map_size_x, map_size_y, number_of_obstacles):
+
+#ToDO find obstacles in json
+
+def findObstacles(Map):
+    list_of_obstacles=[]
+    for i,row in enumerate(Map):
+        if 0 in row:
+            list_of_obstacles.append([row.index(0),i])
+    return list_of_obstacles
+
+
+def generate_image_from_json(input_map):
 
     start_x,start_y=find_values(input_map,2) 
     end_x,end_y=find_values(input_map,-1)   
     weight=1.005
-    
-    list_of_obstacles = generate_list_random_obstacles(number_of_obstacles, map_size_x, map_size_y)
-    
+
+    list_of_obstacles=findObstacles(input_map)
+
     global_object_table = Field.array_creation(input_map)
     success, target = a_star_engine(global_object_table, start_x, start_y, end_x, end_y, weight)
     image = create_plot(global_object_table, list_of_obstacles, success, target)

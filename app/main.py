@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from .models import InputMap, AStarParams
-from astar.astar import generate_object_list,generate_image
+from astar.astar import generate_object_list,generate_image, generate_image_from_json
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -53,6 +53,16 @@ async def root(aStarParams: AStarParams):
     dict_of_parameters = dict([ele for ele in aStarParams])
     image = io.BytesIO()
     img = generate_image(**dict_of_parameters)
+    img.savefig(image, format="png", dpi=300, transparent=True)
+    image.seek(0)
+
+    return StreamingResponse(image, media_type="image/png")
+
+@app.post("/astar/heatmap")
+async def root(input:InputMap):
+    
+    image = io.BytesIO()
+    img = generate_image_from_json(input.input_map)
     img.savefig(image, format="png", dpi=300, transparent=True)
     image.seek(0)
 

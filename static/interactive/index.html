@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,28 +8,31 @@
   <title>Document</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <script src="main.js"></script>
+  <div class="parent">
 
-  <div id="top-menu">
-  
-    <div class="form">
+    <div class="div1">
       <label for="name">Vertical Map Size:</label>
       <input type="number" name="name" id="X" required>
     </div>
-  
-    <div class="form">
+
+    <div class="div2">
       <label for="email">Horizontal Map Size:</label>
       <input type="number" name="email" id="Y" required>
     </div>
-  
-    <button  class="button" onclick="generateTable()">Generate Map</button>
-  </div>
-  </form>
-  
-  <div id="map"></div>
-  <button class="button" onclick="send()">Start</button>
 
+    <button class="div3" onclick="generateTable()">Generate Map</button>
+    <div class="div4" id="map"></div>
+
+    <button class="div5 buttonStart" onclick="send()">Start</button>
+    <button class="div6 button-image" onclick="generateHeatMap()">Generate Heat Map</button>
+    <button class="div7 button-image" onclick="generateTable()">Reset</button>
+    <img id="photo" class="div4" src="image.png" alt="A-star heat map">
+
+  </div>
 
 </body>
+
 </html>
