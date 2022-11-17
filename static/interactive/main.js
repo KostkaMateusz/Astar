@@ -1,8 +1,7 @@
-
 //API recognises in 2D array elements as 1 is normal place; element 0 is an obstacle; element -1 is meta; element 2 is start
 let buttonList = [];
-
-let FieldValues = {
+let action = 0;
+const FieldValues = {
     Normal: 1,
     Obstacle: 0,
     Meta: -1,
@@ -12,22 +11,22 @@ let FieldValues = {
 
 //Create Table
 function generateTable() {
+
+    // set html css atributes
     document.querySelector("#photo").style.opacity = 0;
-    document.querySelector("#photo").style.zIndex = -1;
     document.querySelector("#photo-container").style.zIndex = -1;
     document.querySelector("#map").style.opacity = 100;
 
-    //check if ther eis prevous table
+    //reset table
     if (document.getElementById("map").hasChildNodes()) {
-        var prevTables = document.getElementById("map").childNodes;
+        const prevTables = document.getElementById("map").childNodes;
         document.getElementById("map").removeChild(prevTables[0]);
-        console.log("here")
         buttonList = []
     }
 
     //get data from the form
-    var xSize = document.getElementById("X").value;
-    var ySize = document.getElementById("Y").value;
+    const xSize = document.getElementById("X").value;
+    const ySize = document.getElementById("Y").value;
 
     // creates a <table> element and a <tbody> element
     const tbl = document.createElement("table");
@@ -37,7 +36,7 @@ function generateTable() {
     for (let i = 0; i < xSize; i++) {
         // creates a table row
         const row = document.createElement("tr");
-        var buttonListRow = [];
+        let buttonListRow = [];
         for (let j = 0; j < ySize; j++) {
             // Create a <td> element and a text node, make the text
             // node the contents of the <td>, and put the <td> at
@@ -72,8 +71,8 @@ function OnClickAction(button) {
     const thisButton = button.path[0];
 
     //value-color map
-    if (thisButton.val == 2) thisButton.val = FieldValues.Meta;
-    else if (thisButton.val == 1) thisButton.val = FieldValues.Start;
+    if (thisButton.val == 1) thisButton.val = FieldValues.Start;
+    else if (thisButton.val == 2) thisButton.val = FieldValues.Meta;
     else if (thisButton.val == -1) thisButton.val = FieldValues.Obstacle;
     else if (thisButton.val == 0) thisButton.val = FieldValues.Normal;
 
@@ -101,7 +100,7 @@ function GenerateUploadData(tableOfButtons) {
     let uploadData = [];
 
     tableOfButtons.forEach(row => {
-        var element = row.map((element) => element.val);
+        let element = row.map((element) => element.val);
         uploadData.push(element);
     });
     return uploadData;
@@ -122,13 +121,13 @@ function send() {
     }).then(response => response.json())
         .then(data => ColorPath(data))
         .catch((err) => {
-            console.log(err)
+            userInfo(err)
         });
 }
 
 function ColorPath(data) {
 
-    var path = data['Path'];
+    let path = data['Path'];
     //color Buttons on path from start to meta
     path.forEach(element => buttonList[element.Y][element.X].style.backgroundColor = 'orange');
 }
@@ -136,7 +135,7 @@ function ColorPath(data) {
 
 function generateHeatMap() {
 
-
+    // set html css atributes
     document.querySelector("#photo").style.opacity = 100;
     document.querySelector("#photo-container").style.zIndex = 1;
     document.querySelector("#map").style.opacity = 0;
@@ -163,7 +162,12 @@ function generateHeatMap() {
             img.src = imageUrl;
         })
         .catch((err) => {
-            console.log(err)
-        })
+            userInfo(err)
+        });
 
+}
+
+
+function userInfo(text) {
+    document.getElementById("info").innerHTML = text;
 }

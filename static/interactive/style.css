@@ -1,76 +1,61 @@
 .parent {
     display: grid;
-    grid-template-columns: 1fr 0.2fr;
+    grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(6, 1fr);
     grid-column-gap: 5px;
     grid-row-gap: 5px;
 }
 
 .div1 {
-    grid-area: 1 / 2 / 2 / 3;
+    grid-area: 1 / 5 / 2 / 6;
 }
 
 .div2 {
-    grid-area: 2 / 2 / 3 / 3;
+    grid-area: 2 / 5 / 3 / 6;
 }
 
 .div3 {
-    grid-area: 3 / 2 / 4 / 3;
+    grid-area: 3 / 5 / 4 / 6;
 }
 
 .div4 {
-    grid-area: 1 / 1 / 6 / 2;
+    grid-area: 1 / 1 / 6 / 5;
 }
 
 .div5 {
-    grid-area: 4 / 2 / 5 / 3;
+    grid-area: 4 / 5 / 5 / 6;
 }
 
 .div6 {
-    grid-area: 5 / 2 / 6 / 3;
+    grid-area: 5 / 5 / 6 / 6;
 }
 
 .div7 {
-    grid-area: 6 / 1 / 7 / 3;
+    grid-area: 6 / 1 / 7 / 6;
 }
 
-body {
-    padding: 10px;
+
+.parent {
+    width: 100vw;
+    height: 110vh;
 }
-
-/* .div2 {
-    align-self: start;
-} */
-
-.div1 {
-    align-self: start;
-}
-
 
 input {
     font-size: 30px;
-    /* width: 100%; */
 }
 
 body {
     background-color: black;
     color: white;
     overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
 }
-
 
 table td {
     margin: 0;
     padding: 0;
     border: none;
 }
-
-/* 
-#map {
-    height: 90vh;
-    width: 75vw;
-} */
-
 
 table {
     height: 100%;
@@ -82,7 +67,6 @@ table {
     height: 100%;
     border: 0;
 }
-
 
 #photo {
     height: 90%;
