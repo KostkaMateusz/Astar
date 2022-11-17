@@ -13,7 +13,9 @@ let FieldValues = {
 //Create Table
 function generateTable() {
     document.querySelector("#photo").style.opacity = 0;
-    document.querySelector("#photo").style.zIndex = -11;
+    document.querySelector("#photo").style.zIndex = -1;
+    document.querySelector("#photo-container").style.zIndex = -1;
+    document.querySelector("#map").style.opacity = 100;
 
     //check if ther eis prevous table
     if (document.getElementById("map").hasChildNodes()) {
@@ -136,7 +138,8 @@ function generateHeatMap() {
 
 
     document.querySelector("#photo").style.opacity = 100;
-    document.querySelector("#photo").style.zIndex = 1;
+    document.querySelector("#photo-container").style.zIndex = 1;
+    document.querySelector("#map").style.opacity = 0;
 
     let uploadDataJSON = JSON.stringify({
         input_map: GenerateUploadData(buttonList)
