@@ -1,6 +1,7 @@
 //API recognises in 2D array elements as 1 is normal place; element 0 is an obstacle; element -1 is meta; element 2 is start
 let buttonList = [];
 let action = 0;
+
 const FieldValues = {
     Normal: 1,
     Obstacle: 0,
@@ -8,20 +9,25 @@ const FieldValues = {
     Start: 2
 }
 
+// set html css atributes 
+function setCssAtributes(photoOpacity, zIndex, mapOpacity) {
+    document.querySelector("#photo").style.opacity = photoOpacity;
+    document.querySelector("#photo-container").style.zIndex = zIndex;
+    document.querySelector("#map").style.opacity = mapOpacity;
+}
 
-//Create Table
+//Create Table based on html input
 function generateTable() {
 
-    // set html css atributes
-    document.querySelector("#photo").style.opacity = 0;
-    document.querySelector("#photo-container").style.zIndex = -1;
-    document.querySelector("#map").style.opacity = 100;
+
+    setCssAtributes(0, -1, 100);
 
     //reset table
     if (document.getElementById("map").hasChildNodes()) {
         const prevTables = document.getElementById("map").childNodes;
         document.getElementById("map").removeChild(prevTables[0]);
         buttonList = []
+        action = 0;
     }
 
     //get data from the form
@@ -62,19 +68,30 @@ function generateTable() {
     tbl.setAttribute('id', "table-map");
     // appends <table> into <body>
     document.getElementById("map").appendChild(tbl);
+    userInfo("Select Start Field")
 
 }
 
-
+// define behaovr of a button in table
 function OnClickAction(button) {
 
     const thisButton = button.path[0];
 
     //value-color map
-    if (thisButton.val == 1) thisButton.val = FieldValues.Start;
-    else if (thisButton.val == 2) thisButton.val = FieldValues.Meta;
-    else if (thisButton.val == -1) thisButton.val = FieldValues.Obstacle;
-    else if (thisButton.val == 0) thisButton.val = FieldValues.Normal;
+    if (action == 0) {
+        thisButton.val = FieldValues.Start;
+        action++;
+        userInfo("Select Finish Field");
+    }
+    else if (action == 1 && thisButton.val != FieldValues.Start) {
+        thisButton.val = FieldValues.Meta;
+        action++;
+        userInfo("Place the obstacles");
+    }
+    else if (action == 2 && thisButton.val != FieldValues.Meta && thisButton.val != FieldValues.Start) {
+        thisButton.val = FieldValues.Obstacle;
+        userInfo("Place the obstacles and Click Start");
+    }
 
     // change color based on value
     switch (thisButton.val) {
@@ -106,6 +123,7 @@ function GenerateUploadData(tableOfButtons) {
     return uploadData;
 }
 
+// send json data from table
 function send() {
 
     let uploadDataJSON = JSON.stringify({
@@ -118,13 +136,18 @@ function send() {
             "Content-Type": "application/json",
         },
         body: uploadDataJSON,
-    }).then(response => response.json())
+    })
+        .then(response => response.json())
         .then(data => ColorPath(data))
         .catch((err) => {
             userInfo(err)
         });
+
+    userInfo("You can now generate heat map of the algorithm");
+
 }
 
+//Color optimal path on path
 function ColorPath(data) {
 
     let path = data['Path'];
@@ -132,13 +155,10 @@ function ColorPath(data) {
     path.forEach(element => buttonList[element.Y][element.X].style.backgroundColor = 'orange');
 }
 
-
+//fetch json data and display HeatMap
 function generateHeatMap() {
 
-    // set html css atributes
-    document.querySelector("#photo").style.opacity = 100;
-    document.querySelector("#photo-container").style.zIndex = 1;
-    document.querySelector("#map").style.opacity = 0;
+    setCssAtributes(100, 1, 0);
 
     let uploadDataJSON = JSON.stringify({
         input_map: GenerateUploadData(buttonList)
@@ -153,7 +173,6 @@ function generateHeatMap() {
     })
         .then((response) => response.arrayBuffer())
         .then((data) => {
-
             const arrayBufferView = new Uint8Array(data);
             const blob = new Blob([arrayBufferView], { type: "image/png" });
             const urlCreator = window.URL || window.webkitURL;
@@ -164,10 +183,8 @@ function generateHeatMap() {
         .catch((err) => {
             userInfo(err)
         });
-
 }
 
-
 function userInfo(text) {
-    document.getElementById("info").innerHTML = text;
+    document.getElementById("info").innerHTML = "A star: " + text;
 }
