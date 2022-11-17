@@ -88,6 +88,9 @@ function OnClickAction(button) {
         action++;
         userInfo("Place the obstacles");
     }
+    else if (action == 2 && thisButton.val == FieldValues.Obstacle) {
+        thisButton.val = FieldValues.Normal;
+    }
     else if (action == 2 && thisButton.val != FieldValues.Meta && thisButton.val != FieldValues.Start) {
         thisButton.val = FieldValues.Obstacle;
         userInfo("Place the obstacles and Click Start");
