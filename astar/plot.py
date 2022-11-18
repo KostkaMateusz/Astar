@@ -9,7 +9,7 @@ def draw_path(path):
     plt.plot(x, y, color="green")
 
 
-def create_plot(object_table: list[list[Field]], list_of_obstacles: list[list[int]], success: bool, target: Field):
+def create_plot(object_table: list[list[Field]], list_of_obstacles: list[list[int]], target: Field):
 
     values = np.array([[element.value_of_f for element in row] for row in object_table])
 

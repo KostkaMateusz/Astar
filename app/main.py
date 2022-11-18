@@ -33,13 +33,6 @@ async def timeout_middleware(request: Request, call_next):
                             status_code=HTTP_504_GATEWAY_TIMEOUT)
 
 
-# app.add_middleware(
-#     # CORSMiddleware,
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
-
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get(
