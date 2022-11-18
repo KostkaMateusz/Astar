@@ -113,7 +113,7 @@ def generate_object_list(input_map):
  
     end_x,end_y=find_values(input_map,-1)
    
-    weight=1.005
+    weight=1.05
     
     global_object_table = Field.array_creation(input_map)
 

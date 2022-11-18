@@ -1,15 +1,15 @@
+import io
+import sys
 from fastapi import FastAPI
 from .models import InputMap, AStarParams
 from astar.astar import generate_object_list,generate_image, generate_image_from_json
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
-import io
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 
-import sys
-sys.setrecursionlimit(10000)
+sys.setrecursionlimit(5000)
 
 app = FastAPI()
 

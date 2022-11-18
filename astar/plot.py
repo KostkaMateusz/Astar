@@ -43,7 +43,7 @@ def create_plot(object_table: list[list[Field]], list_of_obstacles: list[list[in
     # Loop over data dimensions and create text annotations.
     for i in range(len(object_table)):
         for j in range(len(object_table[1])):
-            text = ax.text(j, i, values[i, j], ha="center", va="center", color="w")
+            text = ax.text(j, i, round(values[i, j]), ha="center", va="center", color="w")
 
     # path from start to end
     draw_path(path)

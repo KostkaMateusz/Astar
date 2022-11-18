@@ -16,6 +16,15 @@ function setCssAtributes(photoOpacity, zIndex, mapOpacity) {
     document.querySelector("#map").style.opacity = mapOpacity;
 }
 
+
+function validateInput(xSize, ySize) {
+
+    if (xSize <= 40 && xSize > 2 && ySize <= 40 && ySize > 2) return true;
+    else return false;
+
+}
+
+
 //Create Table based on html input
 function generateTable() {
 
@@ -33,6 +42,11 @@ function generateTable() {
     //get data from the form
     const xSize = document.getElementById("X").value;
     const ySize = document.getElementById("Y").value;
+
+    if (!validateInput(xSize, ySize)) {
+        userInfo("Map size must be grater than 2 and smaler than 44")
+        return;
+    }
 
     // creates a <table> element and a <tbody> element
     const tbl = document.createElement("table");

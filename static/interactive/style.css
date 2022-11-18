@@ -8,6 +8,8 @@
 
 .div1 {
     grid-area: 1 / 5 / 2 / 6;
+    align-self: center;
+
 }
 
 .div2 {
@@ -42,6 +44,7 @@
 
 input {
     font-size: 30px;
+    width: 100%;
 }
 
 body {
@@ -69,8 +72,8 @@ table {
 }
 
 #photo {
-    height: 90%;
-    width: 90%;
+    height: 100%;
+    width: 100%;
     opacity: 100;
     z-index: -1;
 }

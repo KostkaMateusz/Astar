@@ -12,12 +12,11 @@
 <body>
   <script src="main.js"></script>
   <div class="parent">
-
     <div class="div1">
       <label for="name">Vertical Map Size:</label>
-      <input type="number" name="name" id="X" required>
+      <input type="number" name="x" id="X" min="2" max="44" required>
       <label for="email">Horizontal Map Size:</label>
-      <input type="number" name="email" id="Y" required>
+      <input type="number" name="y" id="Y" min="2" max="44" required>
     </div>
 
     <button class="div2" onclick="generateTable()">Generate Map</button>
