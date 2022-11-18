@@ -34,7 +34,7 @@ def a_star_engine(global_object_table: list[list[Field]], start_x, start_y, end_
             h = Field.distance_calculator(child, global_object_table[end_y][end_x]) * weight
 
             if child in open_list:
-                if child.g > g:
+                if child.g >= g:
                     continue
             child.g = g
             child.h = h
