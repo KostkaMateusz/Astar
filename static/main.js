@@ -1,4 +1,5 @@
 //API recognises in 2D array elements as 1 is normal place; element 0 is an obstacle; element -1 is meta; element 2 is start
+const url = "https://astarproject.azurewebsites.net/";
 let buttonList = [];
 let action = 0;
 
@@ -147,7 +148,7 @@ function send() {
         input_map: GenerateUploadData(buttonList)
     })
 
-    fetch("http://127.0.0.1:8000/astar", {
+    fetch(url + "astar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -181,7 +182,7 @@ function generateHeatMap() {
         input_map: GenerateUploadData(buttonList)
     })
 
-    fetch("http://127.0.0.1:8000/astar/heatmap", {
+    fetch(url + "astar/heatmap", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
