@@ -9,7 +9,6 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 from fastapi.responses import StreamingResponse
-from fastapi.middleware.cors import CORSMiddleware
 from starlette.status import HTTP_504_GATEWAY_TIMEOUT
 from astar.astar import generate_object_list, generate_image_from_json
 
