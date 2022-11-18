@@ -20,10 +20,10 @@ In this implementation core functionality has a Field class. Each field on a gri
 - fastAPI
 - pydatnic 
 ---
-### The APP is hosted [here](https://fastapi-a-star.herokuapp.com/). 
+### The APP is hosted [here](https://astarproject.azurewebsites.net/). 
 
 ---
-The **documentation** of the api can be found in [here](https://fastapi-a-star.herokuapp.com/docs)
+The **documentation** of the api can be found in [here](https://astarproject.azurewebsites.net/docs)
 
 ---
 ### Setup
