@@ -45,7 +45,7 @@ function generateTable() {
     const ySize = document.getElementById("Y").value;
 
     if (!validateInput(xSize, ySize)) {
-        userInfo("Map size must be grater than 2 and smaler than 44")
+        userInfo("Map size must be grater than 2 and smaler than 40")
         return;
     }
 
