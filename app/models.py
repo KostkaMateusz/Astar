@@ -8,7 +8,7 @@ class InputMap(BaseModel):
     @validator("input_map")
     def valid_value(cls, input_table):
         for row in input_table:
-            if(len(row)>40 and len(row)>2):
+            if(len(row)>40 or len(row)<2):
                 raise ValueError("Lenght of the array must be smaller than 40 and grater than 2")
             for element in row:
                 if element not in (-1,0,1,2):
