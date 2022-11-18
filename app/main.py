@@ -13,9 +13,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.status import HTTP_504_GATEWAY_TIMEOUT
 from astar.astar import generate_object_list, generate_image_from_json
 
-sys.setrecursionlimit(10000)
+sys.setrecursionlimit(9000)
 
-REQUEST_TIMEOUT_ERROR = 15  # Time out Threshold
+REQUEST_TIMEOUT_ERROR = 10  # Time out Threshold
 
 app = FastAPI()
 
@@ -33,13 +33,12 @@ async def timeout_middleware(request: Request, call_next):
                             status_code=HTTP_504_GATEWAY_TIMEOUT)
 
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# app.add_middleware(
+#     # CORSMiddleware,
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
