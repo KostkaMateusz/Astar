@@ -4,26 +4,6 @@ from .field import Field
 from .plot import create_plot
 
 
-def generate_list_random_obstacles(number_of_obstacles, map_size_x: int, map_size_y: int):
-    list_of_obstacles = []
-    for _ in range(number_of_obstacles):
-        x = random.randint(1, map_size_x)
-        y = random.randint(1, map_size_y)
-        list_of_obstacles.append([y - 1, x - 1])
-    return list_of_obstacles
-
-
-def generate_map(start_x: int, start_y: int, end_x: int, end_y: int, map_size_x: int, map_size_y: int, list_of_obstacles: list[list[int]]) -> list[list[int]]:
-    """elements 1 is normal place; element 0 is an obstacle; element -1 is meta; element 2 is start"""
-    map = numpy.full((map_size_x, map_size_y), 1)
-    map[start_x][start_y] = 2
-    map[end_x][end_y] = -1
-    for obstacles in list_of_obstacles:
-        map[obstacles[1]][obstacles[0]] = 0
-
-    return map
-
-
 def a_star_engine(global_object_table: list[list[Field]], start_x, start_y, end_x, end_y, weight):
 
     open_list = []
@@ -36,7 +16,7 @@ def a_star_engine(global_object_table: list[list[Field]], start_x, start_y, end_
         index = open_list.index(currentNode)
         successors = open_list.pop(index).list_of_neighbors
         closed_list.append(currentNode)
-
+        
 
         if currentNode.value == -1:
             success = True
@@ -68,21 +48,6 @@ def find_values(array: list[list[int]],value:int):
         if value in x:
             return i,x.index(value)
 
-
-
-def generate_image(map_size_x, map_size_y, start_x, start_y, end_x, end_y, weight, number_of_obstacles):
-
-    list_of_obstacles = generate_list_random_obstacles(number_of_obstacles, map_size_x, map_size_y)
-    map = generate_map(start_x, start_y, end_x, end_y, map_size_x, map_size_y, list_of_obstacles)
-    global_object_table = Field.array_creation(map)
-    success, target = a_star_engine(global_object_table, start_x, start_y, end_x, end_y, weight)
-    image = create_plot(global_object_table, list_of_obstacles, success, target)
-
-    return image
-
-
-#ToDO find obstacles in json
-
 def findObstacles(Map):
     list_of_obstacles=[]
     for i,row in enumerate(Map):
@@ -95,7 +60,7 @@ def generate_image_from_json(input_map):
 
     start_x,start_y=find_values(input_map,2) 
     end_x,end_y=find_values(input_map,-1)   
-    weight=1.005
+    weight=1
 
     list_of_obstacles=findObstacles(input_map)
 
@@ -106,14 +71,13 @@ def generate_image_from_json(input_map):
     return image
 
 
-
 def generate_object_list(input_map):
 
     start_x,start_y=find_values(input_map,2)
  
     end_x,end_y=find_values(input_map,-1)
    
-    weight=1.05
+    weight=1
     
     global_object_table = Field.array_creation(input_map)
 
