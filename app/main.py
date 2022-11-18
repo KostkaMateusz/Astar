@@ -1,17 +1,36 @@
 import io
 import sys
+import time
+import asyncio
 from fastapi import FastAPI
+from fastapi import FastAPI,Request
 from .models import InputMap, AStarParams
-from astar.astar import generate_object_list,generate_image, generate_image_from_json
-from fastapi import FastAPI
-from fastapi.responses import StreamingResponse
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
+from fastapi.responses import StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
+from starlette.status import HTTP_504_GATEWAY_TIMEOUT
+from astar.astar import generate_object_list,generate_image, generate_image_from_json
 
 sys.setrecursionlimit(5000)
 
+REQUEST_TIMEOUT_ERROR = 15  # Time out Threshold
+
 app = FastAPI()
+
+
+@app.middleware("http")
+async def timeout_middleware(request: Request, call_next):
+    try:
+        start_time = time.time()
+        return await asyncio.wait_for(call_next(request), timeout=REQUEST_TIMEOUT_ERROR)
+
+    except asyncio.TimeoutError:
+        process_time = time.time() - start_time
+        return JSONResponse({'detail': 'Request processing time excedeed limit',
+                             'processing_time': process_time},
+                            status_code=HTTP_504_GATEWAY_TIMEOUT)
 
 
 app.add_middleware(
@@ -70,10 +89,9 @@ async def root(input:InputMap):
 
 
 @app.post("/astar")
-async def root(input:InputMap):
+def root(input:InputMap):
 
     path = generate_object_list(input.input_map)
-
     output_map = {"Path": path}
 
     return output_map
