@@ -1,5 +1,5 @@
 //API recognises in 2D array elements as 1 is normal place; element 0 is an obstacle; element -1 is meta; element 2 is start
-const url = "http://127.0.0.1:8000/";
+const url = "https://astarproject.azurewebsites.net/";
 let buttonList = [];
 let action = 0;
 
