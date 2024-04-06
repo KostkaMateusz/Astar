@@ -86,7 +86,9 @@ def generate_object_list(input_map:list[list[int]]):
 
     path = [{"X":path_X[i], "Y":path_Y[i]} for i in range(0, len(path_X))]
 
-    return path
+    values=[[element.value_of_f for element in row] for row in global_object_table]
+
+    return (path,values)
 
     
 

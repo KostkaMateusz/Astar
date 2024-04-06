@@ -66,7 +66,7 @@ function generateTable() {
             const button = document.createElement("button");
             button.classList.add("table-button");
             button.style.background = "purple";
-            button.onclick = function() { OnClickAction(button)};
+            button.onclick = function () { OnClickAction(button) };
             button.val = FieldValues.Normal;
             buttonListRow.push(button);
             cell.appendChild(button);
@@ -157,6 +157,7 @@ function send() {
     })
         .then(response => response.json())
         .then(data => ColorPath(data))
+        .then(data => Values(data))
         .catch((err) => {
             userInfo(err)
         });
@@ -169,8 +170,27 @@ function send() {
 function ColorPath(data) {
 
     let path = data['Path'];
+
     //color Buttons on path from start to meta
     path.forEach(element => buttonList[element.Y][element.X].style.backgroundColor = 'orange');
+
+    return data;
+}
+
+function Values(data) {
+
+    let valuesOFFields = data['Values'];
+
+    //color Buttons on path from start to meta
+
+    for (let i = 0; i < valuesOFFields.length; i++) {
+        // Loop through columns
+        for (let j = 0; j < valuesOFFields[i].length; j++) {
+            buttonList[i][j].textContent = valuesOFFields[i][j];
+        }
+    }
+    
+    return data;
 }
 
 //fetch json data and display HeatMap

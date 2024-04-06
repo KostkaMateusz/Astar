@@ -54,6 +54,6 @@ async def root(input:InputMap):
 async def root(input:InputMap):
 
     path = generate_object_list(input.input_map)
-    output_map = {"Path": path}
+    output_map = {"Path": path[0], "Values":path[1]}
 
     return output_map
