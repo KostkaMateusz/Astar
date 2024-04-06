@@ -1,5 +1,5 @@
 //API recognises in 2D array elements as 1 is normal place; element 0 is an obstacle; element -1 is meta; element 2 is start
-const url = "https://astarproject.azurewebsites.net/";
+const url = "http://127.0.0.1:8000/";
 let buttonList = [];
 let action = 0;
 
@@ -66,7 +66,7 @@ function generateTable() {
             const button = document.createElement("button");
             button.classList.add("table-button");
             button.style.background = "purple";
-            button.onclick = function (button) { OnClickAction(button) };
+            button.onclick = function() { OnClickAction(button)};
             button.val = FieldValues.Normal;
             buttonListRow.push(button);
             cell.appendChild(button);
@@ -90,7 +90,7 @@ function generateTable() {
 // define behaovr of a button in table
 function OnClickAction(button) {
 
-    const thisButton = button.path[0];
+    const thisButton = button;
 
     //value-color map
     if (action == 0) {
