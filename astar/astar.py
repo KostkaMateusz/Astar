@@ -1,5 +1,4 @@
 from .field import Field
-from .plot import create_plot
 
 
 def a_star_engine(global_object_table: list[list[Field]], start_x :int, start_y:int, end_x:int, end_y:int, weight:float):
@@ -54,21 +53,6 @@ def findObstacles(Map:list[list[int]]):
     return list_of_obstacles
 
 
-def generate_image_from_json(input_map:list[list[int]]):
-
-    start_x,start_y=find_values(input_map,2) 
-    end_x,end_y=find_values(input_map,-1)   
-    weight=1
-
-    list_of_obstacles=findObstacles(input_map)
-
-    global_object_table = Field.array_creation(input_map)
-    target = a_star_engine(global_object_table, start_x, start_y, end_x, end_y, weight)
-    image = create_plot(global_object_table, list_of_obstacles, target)
-
-    return image
-
-
 def generate_object_list(input_map:list[list[int]]):
 
     start_x,start_y=find_values(input_map,2)
@@ -89,8 +73,3 @@ def generate_object_list(input_map:list[list[int]]):
     values=[[element.value_of_f for element in row] for row in global_object_table]
 
     return (path,values)
-
-    
-
-
-

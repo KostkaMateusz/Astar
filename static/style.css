@@ -29,13 +29,8 @@
 }
 
 .div6 {
-    grid-area: 5 / 5 / 6 / 6;
-}
-
-.div7 {
     grid-area: 6 / 1 / 7 / 6;
 }
-
 
 .parent {
     width: 100vw;

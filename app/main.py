@@ -1,4 +1,3 @@
-import io
 import sys
 import time
 import asyncio
@@ -9,7 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 from fastapi.responses import StreamingResponse
 from starlette.status import HTTP_504_GATEWAY_TIMEOUT
-from astar.astar import generate_object_list, generate_image_from_json
+from astar.astar import generate_object_list
 
 sys.setrecursionlimit(9000)
 
@@ -38,16 +37,6 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 )
 async def root():
     return RedirectResponse("/static/index.html")
-
-@app.post("/astar/heatmap")
-async def root(input:InputMap):
-    
-    image = io.BytesIO()
-    img = generate_image_from_json(input.input_map)
-    img.savefig(image, format="png", dpi=300, transparent=True)
-    image.seek(0)
-
-    return StreamingResponse(image, media_type="image/png")
 
 
 @app.post("/astar")

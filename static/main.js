@@ -10,27 +10,14 @@ const FieldValues = {
     Start: 2
 }
 
-// set html css atributes 
-function setCssAtributes(photoOpacity, zIndex, mapOpacity) {
-    document.querySelector("#photo").style.opacity = photoOpacity;
-    document.querySelector("#photo-container").style.zIndex = zIndex;
-    document.querySelector("#map").style.opacity = mapOpacity;
-}
-
-
 function validateInput(xSize, ySize) {
 
-    if (xSize <= 40 && xSize > 2 && ySize <= 40 && ySize > 2) return true;
+    if (xSize <= 43 && xSize > 2 && ySize <= 60 && ySize > 2) return true;
     else return false;
-
 }
-
 
 //Create Table based on html input
 function generateTable() {
-
-
-    setCssAtributes(0, -1, 100);
 
     //reset table
     if (document.getElementById("map").hasChildNodes()) {
@@ -162,7 +149,7 @@ function send() {
             userInfo(err)
         });
 
-    userInfo("You can now generate heat map of the algorithm");
+    userInfo("Calculations Completed");
 
 }
 
@@ -189,38 +176,8 @@ function Values(data) {
             buttonList[i][j].textContent = valuesOFFields[i][j];
         }
     }
-    
+
     return data;
-}
-
-//fetch json data and display HeatMap
-function generateHeatMap() {
-
-    setCssAtributes(100, 1, 0);
-
-    let uploadDataJSON = JSON.stringify({
-        input_map: GenerateUploadData(buttonList)
-    })
-
-    fetch(url + "astar/heatmap", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: uploadDataJSON,
-    })
-        .then((response) => response.arrayBuffer())
-        .then((data) => {
-            const arrayBufferView = new Uint8Array(data);
-            const blob = new Blob([arrayBufferView], { type: "image/png" });
-            const urlCreator = window.URL || window.webkitURL;
-            const imageUrl = urlCreator.createObjectURL(blob);
-            const img = document.querySelector("#photo");
-            img.src = imageUrl;
-        })
-        .catch((err) => {
-            userInfo(err)
-        });
 }
 
 function userInfo(text) {
